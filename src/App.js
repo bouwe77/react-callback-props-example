@@ -2,53 +2,61 @@
 import { useState } from "react";
 import "./styles.css";
 
+const photos = [
+  "https://picsum.photos/id/213/300",
+  "https://picsum.photos/id/622/300",
+  "https://picsum.photos/id/134/300",
+  "https://picsum.photos/id/88/300"
+];
+
 export default function App() {
   return (
     <>
       <Number />
-      <Letter />
+      <Photos />
     </>
   );
 }
 
-function Letter() {
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const [letterIndex, setLetterIndex] = useState(0);
-  const letter = alphabet[letterIndex];
+function Photos() {
+  const [photoIndex, setLetterIndex] = useState(0);
+  const photo = photos[photoIndex];
 
-  function getPrevLetter() {
+  function getPrevPhoto() {
     const newLetterIndex =
-      letterIndex === 0 ? alphabet.length - 1 : letterIndex - 1;
+      photoIndex === 0 ? photos.length - 1 : photoIndex - 1;
     setLetterIndex(newLetterIndex);
   }
 
-  function getNextLetter() {
+  function getNextPhoto() {
     const newLetterIndex =
-      letterIndex === alphabet.length - 1 ? 0 : letterIndex + 1;
+      photoIndex === photos.length - 1 ? 0 : photoIndex + 1;
     setLetterIndex(newLetterIndex);
   }
 
   return (
-    <>
-      <div className="box">{letter}</div>
-      <LeftRightArrowButtons
-        onLeftClick={getPrevLetter}
-        onRightClick={getNextLetter}
-      />
-    </>
+    <div className="container">
+      <div className="box" style={{ width: "400px" }}>
+        <img alt={photo} src={photo} />
+        <LeftRightArrowButtons
+          onLeftClick={getPrevPhoto}
+          onRightClick={getNextPhoto}
+        />
+      </div>
+    </div>
   );
 }
 
 function Number() {
   const [number, setNumber] = useState(0);
   return (
-    <>
+    <div className="container">
       <div className="box">{number}</div>
       <LeftRightArrowButtons
         onLeftClick={() => setNumber(number - 1)}
         onRightClick={() => setNumber(number + 1)}
       />
-    </>
+    </div>
   );
 }
 
